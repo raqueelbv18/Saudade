@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saudade</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f5;
+      color: #243b3e;
+      line-height: 1.6;
+    }
+
+    nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background-color: rgba(47, 93, 98, 0.94);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    nav a,
+    .boto-menu {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    nav a:hover,
+    .boto-menu:hover {
+      color: #f2c6ac;
+    }
+
+    .desplegable {
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .contingut-desplegable {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: white;
+      min-width: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .contingut-desplegable a {
+      color: #243b3e;
+      display: block;
+      padding: 12px 16px;
+      text-decoration: none;
+    }
+
+    .contingut-desplegable a:hover {
+      background-color: #e3f0ec;
+      color: #243b3e;
+    }
+
+    .desplegable:hover .contingut-desplegable,
+    .desplegable:focus-within .contingut-desplegable {
+      display: block;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 140px 8% 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #2f5d62, #6fa8a1, #f2c6ac);
+      color: white;
+    }
+
+    .hero-contingut {
+      max-width: 850px;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 34px;
+    }
+
+    .boto-principal {
+      display: inline-block;
+      background-color: white;
+      color: #2f5d62;
+      padding: 14px 26px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .boto-principal:hover {
+      transform: translateY(-3px);
+      background-color: #fff8f2;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: auto;
+      padding: 80px 20px;
+    }
+
+    section {
+      margin-bottom: 90px;
+      scroll-margin-top: 110px;
+    }
+
+    .titol-seccio {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .titol-seccio h2 {
+      font-size: 2.4rem;
+      color: #2f5d62;
+      margin-bottom: 10px;
+    }
+
+    .titol-seccio p {
+      max-width: 760px;
+      margin: auto;
+      color: #4f5f61;
+    }
+
+    .caixa-intro {
+      background-color: white;
+      padding: 42px;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      font-size: 1.08rem;
+    }
+
+    .graella {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .targeta {
+      background-color: white;
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+      border-top: 5px solid #f2c6ac;
+    }
+
+    .targeta:hover {
+      transform: translateY(-5px);
+    }
+
+    .targeta h3 {
+      color: #d9795d;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .targeta p {
+      color: #4f5f61;
+    }
+
+    .etapes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .etapa {
+      background-color: #fff8f2;
+      padding: 36px;
+      border-radius: 28px;
+      border: 1px solid #d6e7e2;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .etapa h3 {
+      color: #2f5d62;
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+
+    .boto-secundari {
+      display: inline-block;
+      margin-top: 18px;
+      background-color: #2f5d62;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 22px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .boto-secundari:hover {
+      background-color: #24484c;
+    }
+
+    .pagina-recursos {
+      background-color: white;
+      padding: 42px;
+      border-radius: 30px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .menu-intern {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 35px;
+    }
+
+    .menu-intern a {
+      background-color: #e3f0ec;
+      color: #2f5d62;
+      padding: 10px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .menu-intern a:hover {
+      background-color: #f2c6ac;
+      color: #243b3e;
+    }
+
+    .bloc-recurs {
+      background-color: #fff8f2;
+      border: 1px solid #d6e7e2;
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 26px;
+    }
+
+    .bloc-recurs h3 {
+      color: #2f5d62;
+      font-size: 1.7rem;
+      margin-bottom: 16px;
+    }
+
+    .album {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 24px;
+      align-items: center;
+      background-color: white;
+      padding: 22px;
+      border-radius: 22px;
+      margin-top: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .album img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .album h4 {
+      color: #d9795d;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .album p {
+      margin-bottom: 10px;
+      color: #4f5f61;
+    }
+
+    .racons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .raco {
+      background-color: white;
+      padding: 24px;
+      border-radius: 22px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      border-top: 5px solid #f2c6ac;
+    }
+
+    .raco h4 {
+      color: #d9795d;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .raco p {
+      color: #4f5f61;
+      margin-bottom: 10px;
+    }
+
+    .raco ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .raco li {
+      margin-bottom: 8px;
+      color: #4f5f61;
+    }
+
+    .destacat {
+      background-color: #2f5d62;
+      color: white;
+      padding: 46px;
+      border-radius: 30px;
+      text-align: center;
+    }
+
+    .destacat h2 {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    footer {
+      background-color: #243b3e;
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+    }
+
+    @media (max-width: 850px) {
+      nav {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .graella,
+      .etapes,
+      .album,
+      .racons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">Saudade</div>
+
+    <div class="menu">
+      <a href="#inici">Inici</a>
+      <a href="#projecte">El projecte</a>
+
+      <div class="desplegable">
+        <button class="boto-menu">Recursos ▾</button>
+        <div class="contingut-desplegable">
+          <a href="#infantil">Infantil</a>
+          <a href="#primaria">Primària</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header id="inici" class="hero">
+    <div class="hero-contingut">
+      <h1>Saudade</h1>
+      <p>Recursos per visibilitzar la mort i el dol.</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="projecte">
+      <div class="titol-seccio">
+        <h2>El projecte</h2>
+        <p>Un espai educatiu per ajudar i acompanyar el tractament de la mort i el dol a l’escola.</p>
+      </div>
+
+      <div class="caixa-intro">
+        <p>
+          Saudade, del portuguès, descriu l’essència del dol: és el sentiment de trobar a faltar algú, barrejant la tristesa de l’absència amb l’amor i la felicitat d’haver compartit moments amb aquella persona. Aquest és un espai pensat per oferir recursos, orientacions i propostes didàctiques per parlar de la mort i el dol amb infants. L’objectiu és visibilitzar aquest tema dins l’àmbit educatiu d’una manera respectuosa, propera i adaptada a cada etapa.
+        </p>
+      </div>
+    </section>
+
+    <section id="materials">
+      <div class="titol-seccio">
+        <h2>Què hi trobaràs?</h2>
+        <p>S’organitza en diferents tipus de recursos per facilitar-ne l’ús a l’aula.</p>
+      </div>
+
+      <div class="graella">
+        <div class="targeta">
+          <h3>Contes</h3>
+          <p>Àlbums il·lustrats i llibres per iniciar converses sobre la mort, l’absència i el record.</p>
+        </div>
+
+        <div class="targeta">
+          <h3>Activitats</h3>
+          <p>Propostes senzilles per treballar les emocions, el dol i l’acompanyament a través del joc, l’art i la paraula.</p>
+        </div>
+
+        <div class="targeta">
+          <h3>Orientacions</h3>
+          <p>Idees i recomanacions per abordar el tema amb sensibilitat segons l’edat dels infants.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <div class="titol-seccio">
+        <h2>Recursos per etapa</h2>
+        <p>Tria l’etapa educativa per accedir als recursos específics.</p>
+      </div>
+
+      <div class="etapes">
+        <div class="etapa">
+          <h3>Infantil</h3>
+          <p>Recursos per treballar la mort i el dol des de l’oralitat, el conte, el joc simbòlic i l’expressió emocional.</p>
+          <a class="boto-secundari" href="#infantil">Veure recursos d’Infantil</a>
+        </div>
+
+        <div class="etapa">
+          <h3>Primària</h3>
+          <p>Materials per reflexionar sobre la pèrdua, els records, les emocions i les maneres d’acompanyar els altres.</p>
+          <a class="boto-secundari" href="#primaria">Veure recursos de Primària</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="infantil" class="pagina-recursos">
+      <div class="titol-seccio">
+        <h2>Recursos d’Infantil</h2>
+        <p>Apartats per treballar la mort i el dol amb infants d’Educació Infantil.</p>
+      </div>
+
+      <div class="menu-intern">
+        <a href="#infantil-contes">Contes i àlbums il·lustrats</a>
+        <a href="#infantil-racons">Racons de conversa</a>
+        <a href="#infantil-dibuixos">Dibuixos i activitats creatives</a>
+        <a href="#infantil-preguntes">Preguntes senzilles</a>
+      </div>
+
+      <div id="infantil-contes" class="bloc-recurs">
+        <h3>Contes i àlbums il·lustrats</h3>
+        <p>Hi trobaràs un recull d’àlbums il·lustrats per poder treballar la mort i el dol amb els més menuts.</p>
+
+        <div class="album">
+          <img src="gota-aigua.png" alt="La gota d’aigua">
+          <div>
+            <h4>La gota d’aigua</h4>
+            <p>És un conegut àlbum il·lustrat publicat per Akiara Books (2018), adaptat a partir d’un text del pensador Raimon Panikkar.</p>
+            <p><strong>Temàtica:</strong> utilitza la metàfora de la gota d’aigua que cau al mar per explicar la mort als infants de manera natural i serena.</p>
+            <p><strong>El missatge:</strong> quan la gota arriba a l’oceà, deixa de tenir forma de gota però no deixa de ser aigua; simplement es fon amb el tot.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="arbre-records.jpg" alt="Portada de l’àlbum il·lustrat L’arbre dels records">
+          <div>
+            <h4>L’arbre dels records</h4>
+            <p>És un àlbum il·lustrat de Britta Teckentrup que tracta la mort d’un ésser estimat i el procés de dol a través del record compartit.</p>
+            <p><strong>Temàtica:</strong> mostra com els records poden mantenir viu el vincle amb algú que ha mort.</p>
+            <p><strong>El missatge:</strong> les persones o éssers estimats que marxen continuen presents en allò que han deixat en nosaltres.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="petit-esquirol.jpg" alt="Portada de l’àlbum il·lustrat No és fàcil, petit esquirol!">
+          <div>
+            <h4>No és fàcil, petit esquirol!</h4>
+            <p>És un àlbum il·lustrat que explica la història d’un petit esquirol que se sent trist després de la mort de la seva mare.</p>
+            <p><strong>Temàtica:</strong> tracta la pèrdua d’una persona estimada i les emocions que poden aparèixer durant el dol, com la tristesa, l’enyorança o la necessitat d’acompanyament.</p>
+            <p><strong>El missatge:</strong> perdre algú que estimem no és fàcil, però parlar-ne, sentir-nos acompanyats i recordar els moments viscuts pot ajudar-nos a conviure amb l’absència.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="illa-avi.jpg" alt="Portada de l’àlbum il·lustrat L’illa de l’avi">
+          <div>
+            <h4>L’illa de l’avi</h4>
+            <p>És un àlbum il·lustrat de Benji Davies que explica la relació entre un infant i el seu avi a través d’un viatge simbòlic, tendre i ple d’imaginació.</p>
+            <p><strong>Temàtica:</strong> aborda la pèrdua d’un avi d’una manera poètica, visual i delicada, fent servir el viatge com a metàfora del comiat.</p>
+            <p><strong>El missatge:</strong> les persones que estimem poden marxar físicament, però continuen presents en els records, en l’amor compartit i en tot allò que hem viscut amb elles.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="efimera.jpg" alt="Portada de l’àlbum il·lustrat L’efímera">
+          <div>
+            <h4>L’efímera</h4>
+            <p>És un àlbum il·lustrat que explica la història de dos infants que troben un petit insecte que només viu un dia i decideixen fer que aquell dia sigui especial.</p>
+            <p><strong>Temàtica:</strong> permet parlar de la brevetat de la vida, del pas del temps i de la mort des d’una situació senzilla, propera i fàcil d’entendre.</p>
+            <p><strong>El missatge:</strong> encara que una vida sigui curta, pot estar plena de moments bonics, experiències importants i records valuosos.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="el-buit.jpg" alt="Portada de l’àlbum il·lustrat El buit">
+          <div>
+            <h4>El buit</h4>
+            <p>És un àlbum il·lustrat d’Anna Llenas que representa la pèrdua a través de la imatge d’un buit interior que la protagonista intenta omplir.</p>
+            <p><strong>Temàtica:</strong> parla de la sensació de buit, la tristesa i la necessitat d’entendre què passa dins nostre quan vivim una pèrdua o una experiència dolorosa.</p>
+            <p><strong>El missatge:</strong> no sempre podem fer desaparèixer el dolor ràpidament, però podem aprendre a escoltar-lo, cuidar-nos i trobar maneres de conviure amb allò que sentim.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="sempre-estimare-petito.jpg" alt="Portada de l’àlbum il·lustrat Sempre t’estimaré, petitó">
+          <div>
+            <h4>Sempre t’estimaré, petitó</h4>
+            <p>És un àlbum il·lustrat que parla de l’amor incondicional a través d’una història tendra i propera entre un infant i la seva figura d’aferrament.</p>
+            <p><strong>Temàtica:</strong> permet treballar la seguretat emocional, la por a perdre l’estima i la necessitat de sentir-se acompanyat i estimat.</p>
+            <p><strong>El missatge:</strong> l’amor de les persones que ens estimen pot continuar present fins i tot quan tenim por, ens equivoquem o ens sentim insegurs.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="el-petit-i-jo.jpg" alt="Portada de l’àlbum il·lustrat El petit i jo">
+          <div>
+            <h4>El petit i jo</h4>
+            <p>És un àlbum il·lustrat que tracta la pèrdua d’un animal de companyia i el vincle afectiu que es crea entre un infant i la seva mascota.</p>
+            <p><strong>Temàtica:</strong> parla de la mort d’un animal estimat, de la tristesa que pot aparèixer davant aquesta absència i de la importància de validar el dol dels infants.</p>
+            <p><strong>El missatge:</strong> perdre una mascota també pot fer molt mal, però recordar els moments compartits i parlar del que sentim pot ajudar a conviure amb aquesta pèrdua.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="dues-ales.jpg" alt="Portada de l’àlbum il·lustrat Dues ales">
+          <div>
+            <h4>Dues ales</h4>
+            <p>És un àlbum il·lustrat que aborda l’absència i el record a partir d’una història poètica i delicada, plena de simbolisme.</p>
+            <p><strong>Temàtica:</strong> permet parlar de la mort, del pas del temps i dels records que queden quan una persona estimada ja no hi és físicament.</p>
+            <p><strong>El missatge:</strong> quan algú marxa, el seu record pot continuar present en les petites coses, en allò que hem compartit i en l’estima que queda.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="caricia-papallona.jpg" alt="Portada de l’àlbum il·lustrat La carícia de la papallona">
+          <div>
+            <h4>La carícia de la papallona</h4>
+            <p>És un àlbum il·lustrat que permet parlar de la mort d’una persona estimada a través d’una mirada tendra, simbòlica i propera.</p>
+            <p><strong>Temàtica:</strong> aborda la pèrdua, el record i la presència simbòlica de les persones que estimem en les petites coses quotidianes.</p>
+            <p><strong>El missatge:</strong> encara que una persona ja no hi sigui físicament, pot continuar present en els records, en els gestos i en allò que ens fa sentir acompanyats.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="para-siempre.jpg" alt="Portada de l’àlbum il·lustrat Para siempre">
+          <div>
+            <h4>Para siempre</h4>
+            <p>És un àlbum il·lustrat que ajuda a parlar de la mort amb els infants d’una manera clara, propera i respectuosa, evitant explicacions massa abstractes.</p>
+            <p><strong>Temàtica:</strong> explica la mort com una part del cicle de la vida i permet abordar les preguntes que poden aparèixer quan algú estimat mor.</p>
+            <p><strong>El missatge:</strong> morir vol dir que el cos deixa de viure, però l’amor, els records i tot allò que hem compartit amb aquella persona poden continuar presents.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="si-mon-sencer-fos.jpg" alt="Portada de l’àlbum il·lustrat Si el món sencer fos...">
+          <div>
+            <h4>Si el món sencer fos...</h4>
+            <p>És un àlbum il·lustrat que parla del vincle entre una nena i el seu avi, i de com els records poden continuar presents després de la pèrdua.</p>
+            <p><strong>Temàtica:</strong> aborda la mort d’un ésser estimat a través de la memòria, la imaginació i els petits moments compartits.</p>
+            <p><strong>El missatge:</strong> quan algú que estimem mor, podem continuar recordant-lo a través de les paraules, els gestos, les històries i tot allò que vam viure plegats.</p>
+          </div>
+        </div>
+
+        <div class="album">
+          <img src="julia-estel.jpg" alt="Portada de l’àlbum il·lustrat La Júlia té un estel">
+          <div>
+            <h4>La Júlia té un estel</h4>
+            <p>És un àlbum il·lustrat que explica la història d’una nena que viu la pèrdua d’una persona estimada i troba una manera simbòlica de continuar sentint-la a prop.</p>
+            <p><strong>Temàtica:</strong> tracta la mort, l’absència i el record a través d’una imatge propera i poètica, com és la presència d’un estel.</p>
+            <p><strong>El missatge:</strong> quan una persona estimada mor, podem continuar recordant-la i sentint-la present d’una altra manera, a través dels records, l’amor i els símbols que ens ajuden a parlar-ne.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="infantil-racons" class="bloc-recurs">
+        <h3>Racons de conversa</h3>
+        <p>Són propostes per crear espais tranquils de diàleg amb els infants, on puguin parlar del record, l’absència, les emocions i l’acompanyament.</p>
+
+        <div class="racons">
+          <div class="raco">
+            <h4>El racó dels records</h4>
+            <p>Aquest racó permet parlar de persones, animals o moments que els infants recorden amb afecte.</p>
+            <p>Es pot preparar una capsa amb fotografies, dibuixos, objectes simbòlics o targetes amb cors. Els infants poden portar o dibuixar alguna cosa que els recordi una persona, un animal o un moment especial.</p>
+            <ul>
+              <li>Què recordes d’aquesta persona, animal o moment?</li>
+              <li>Com et fa sentir aquest record?</li>
+              <li>Què podem fer quan trobem a faltar algú?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>El racó de les emocions</h4>
+            <p>Aquest espai ajuda els infants a posar nom a les emocions que poden aparèixer davant una pèrdua, com la tristesa, la ràbia, la por, la calma o l’amor.</p>
+            <p>Es poden utilitzar targetes d’emocions, cares dibuixades, pots de colors o contes com a suport visual perquè cada infant pugui expressar com se sent.</p>
+            <ul>
+              <li>Com creus que se sent aquest personatge?</li>
+              <li>Què t’ajuda quan estàs trist/a?</li>
+              <li>Què podem fer si un amic o amiga està trist/a?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>La capsa dels records</h4>
+            <p>Aquesta proposta consisteix a crear una capsa decorada on els infants puguin guardar dibuixos, paraules, fotografies o petits records significatius.</p>
+            <p>No cal que sempre estigui relacionada amb una mort; també pot recollir records bonics d’un familiar, d’un animal, d’un amic o d’un moment especial.</p>
+            <ul>
+              <li>Quin record vols guardar?</li>
+              <li>Per què és important per a tu?</li>
+              <li>Com et sents quan penses en aquest record?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>El racó del conte compartit</h4>
+            <p>Aquest racó parteix de la lectura d’un àlbum il·lustrat per obrir una conversa guiada sobre la mort, el dol, el record o l’absència.</p>
+            <p>Després de llegir un conte com <em>La gota d’aigua</em>, <em>L’arbre dels records</em> o <em>No és fàcil, petit esquirol!</em>, el docent pot deixar temps perquè els infants expliquin què han entès i què han sentit.</p>
+            <ul>
+              <li>Què li passa al personatge?</li>
+              <li>Com creus que se sent?</li>
+              <li>Què faries tu per ajudar aquest personatge?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>El jardí dels records</h4>
+            <p>Aquesta proposta permet representar els records de manera visual i col·lectiva.</p>
+            <p>Cada infant pot crear una flor o una fulla amb un dibuix, una paraula o un color relacionat amb un record bonic. Després, totes les creacions es poden enganxar en un mural col·lectiu anomenat “El jardí dels records”.</p>
+            <ul>
+              <li>Quin record vols posar al jardí?</li>
+              <li>De quin color seria aquest record?</li>
+              <li>Què podem fer perquè els records no desapareguin?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="infantil-dibuixos" class="bloc-recurs">
+        <h3>Dibuixos i activitats creatives</h3>
+        <p>Són propostes plàstiques i simbòliques perquè els infants puguin expressar emocions, records i vivències relacionades amb la pèrdua d’una manera visual, calmada i respectuosa.</p>
+
+        <div class="racons">
+          <div class="raco">
+            <h4>El dibuix del record</h4>
+            <p>L’infant pot fer un dibuix d’un moment bonic, d’una persona, d’un animal o d’un lloc que recorda amb estima.</p>
+            <p>Aquesta activitat permet expressar allò que potser encara costa posar en paraules.</p>
+            <ul>
+              <li>Material: fulls, colors, retoladors o ceres.</li>
+              <li>Proposta: “Dibuixa un record que et faci sentir bé”.</li>
+              <li>Després es pot compartir oralment, només si l’infant ho vol.</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>La capsa dels records</h4>
+            <p>Es pot decorar una capsa col·lectiva o individual on guardar dibuixos, paraules, fotografies o petits objectes simbòlics.</p>
+            <p>La capsa pot convertir-se en un espai segur on conservar records importants.</p>
+            <ul>
+              <li>Material: capsa, cartolines, gomets, colors i papers petits.</li>
+              <li>Proposta: guardar-hi records bonics o paraules significatives.</li>
+              <li>Es pot deixar en un racó tranquil de l’aula.</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>El mural dels records bonics</h4>
+            <p>Els infants poden crear un mural col·lectiu amb dibuixos, paraules, cors, flors o estrelles relacionades amb records importants.</p>
+            <p>Aquesta proposta ajuda a representar que els records poden continuar presents dins del grup.</p>
+            <ul>
+              <li>Material: paper gran, cartolines, colors, adhesius i tisores.</li>
+              <li>Proposta: crear entre tots un mural de records.</li>
+              <li>Pot quedar penjat a l’aula durant uns dies.</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>La flor del record</h4>
+            <p>Cada infant pot crear una flor de paper. Al centre hi pot dibuixar o escriure, amb ajuda, un record, una emoció o una paraula bonica.</p>
+            <p>Després es poden ajuntar totes les flors per crear un petit jardí simbòlic.</p>
+            <ul>
+              <li>Material: cartolines, colors, tisores i cola.</li>
+              <li>Proposta: “Quin record vols posar dins la teva flor?”</li>
+              <li>Permet treballar el record d’una manera visual i positiva.</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>L’estel de les emocions</h4>
+            <p>Els infants poden crear un estel amb una emoció o un missatge. Pot representar una persona, un animal o un record que volen tenir present.</p>
+            <p>Aquesta activitat és útil per parlar de l’absència a través d’un símbol proper i poètic.</p>
+            <ul>
+              <li>Material: cartolina, fils, colors i gomets.</li>
+              <li>Proposta: escriure o dibuixar una emoció dins l’estel.</li>
+              <li>Es poden penjar els estels en un espai tranquil de l’aula.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="infantil-preguntes" class="bloc-recurs">
+        <h3>Preguntes senzilles per parlar del que sentim</h3>
+        <p>Són preguntes breus, clares i adaptades a Educació Infantil per ajudar els infants a expressar emocions, dubtes, records i necessitats davant la mort, el dol o l’absència.</p>
+
+        <div class="racons">
+          <div class="raco">
+            <h4>Preguntes sobre les emocions</h4>
+            <p>Aquestes preguntes ajuden els infants a identificar com se senten i a posar paraules a les seves emocions.</p>
+            <ul>
+              <li>Com et sents avui?</li>
+              <li>Quin color tindria aquesta emoció?</li>
+              <li>On notes aquesta emoció al cos?</li>
+              <li>Què t’ajuda quan estàs trist/a?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>Preguntes sobre el record</h4>
+            <p>Aquestes preguntes permeten parlar de les persones, animals o moments que els infants recorden amb estima.</p>
+            <ul>
+              <li>Quin record bonic tens?</li>
+              <li>Què t’agradava fer amb aquesta persona o animal?</li>
+              <li>Quina cosa et fa pensar-hi?</li>
+              <li>Com podem guardar aquest record?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>Preguntes sobre l’absència</h4>
+            <p>Aquestes preguntes ajuden a parlar de manera senzilla sobre el fet de trobar a faltar algú.</p>
+            <ul>
+              <li>Què vol dir trobar a faltar algú?</li>
+              <li>Quan trobes a faltar algú, què sents?</li>
+              <li>Hi ha alguna cosa que et fa sentir a prop d’aquesta persona o animal?</li>
+              <li>Què podem fer quan enyorem algú?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>Preguntes després d’un conte</h4>
+            <p>Aquestes preguntes poden utilitzar-se després de llegir un àlbum il·lustrat sobre la mort, el dol o el record.</p>
+            <ul>
+              <li>Què li ha passat al personatge?</li>
+              <li>Com creus que se sent?</li>
+              <li>Quina part del conte t’ha agradat més?</li>
+              <li>Què li diries al personatge per ajudar-lo?</li>
+            </ul>
+          </div>
+
+          <div class="raco">
+            <h4>Preguntes per cuidar i acompanyar</h4>
+            <p>Aquestes preguntes afavoreixen l’empatia i ajuden els infants a pensar com poden acompanyar algú que està trist.</p>
+            <ul>
+              <li>Com podem ajudar algú que està trist?</li>
+              <li>Què li podem dir a un amic o amiga que plora?</li>
+              <li>Què ens agrada que facin amb nosaltres quan estem tristos?</li>
+              <li>Una abraçada pot ajudar? Quan?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="primaria" class="pagina-recursos">
+      <div class="titol-seccio">
+        <h2>Recursos de Primària</h2>
+        <p>Apartats per treballar la mort i el dol amb infants d’Educació Primària.</p>
+      </div>
+
+      <div class="menu-intern">
+        <a href="#primaria-lectures">Lectures i debat</a>
+        <a href="#primaria-dinamiques">Dinàmiques d’aula</a>
+        <a href="#primaria-escriptura">Escriptura i expressió</a>
+        <a href="#primaria-dol">Parlar del dol</a>
+      </div>
+
+<div id="primaria-lectures" class="bloc-recurs">
+  <h3>Lectures i propostes de debat</h3>
+  <p>Són lectures pensades per obrir converses més profundes amb l’alumnat de Primària sobre la mort, el dol, els records, l’absència i la manera d’acompanyar les persones que passen per una pèrdua.</p>
+
+  <div class="album">
+    <img src="pato-muerte-tulipan.jpg" alt="Portada de l’àlbum il·lustrat El pato y la muerte y el tulipán">
+
+    <div>
+      <h4>El pato y la muerte y el tulipán</h4>
+      <p>
+        És un àlbum il·lustrat que presenta la mort com una figura propera i tranquil·la. La relació entre l’ànec i la mort permet parlar d’aquest tema d’una manera serena, simbòlica i respectuosa.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> parlar sobre com apareix representada la mort i sobre per què pot fer-nos por allò que no coneixem.
+      </p>
+      <ul>
+        <li>Com és la mort en aquest conte?</li>
+        <li>Per què creus que l’ànec primer se sorprèn?</li>
+        <li>La mort sempre s’ha de representar com una cosa fosca o terrorífica?</li>
+        <li>Què ens fa pensar aquest conte?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="album">
+    <img src="jack-muerte.jpeg" alt="Portada del conte Jack y la muerte">
+
+    <div>
+      <h4>Jack y la muerte</h4>
+      <p>
+        És una història que explica com Jack aconsegueix atrapar la mort i, a partir d’aquest fet, descobreix les conseqüències que tindria un món on ningú pogués morir. El relat permet parlar de la mort des d’una perspectiva simbòlica, narrativa i reflexiva.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> reflexionar sobre per què la mort forma part del cicle de la vida i sobre què passaria si aquesta desaparegués completament.
+      </p>
+      <ul>
+        <li>Per què Jack vol evitar la mort?</li>
+        <li>Què passa quan la mort queda atrapada?</li>
+        <li>Per què la mort també forma part de la vida?</li>
+        <li>Què ens ensenya aquesta història sobre acceptar els comiats?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="album">
+    <img src="cor-botella.jpg" alt="Portada de l’àlbum il·lustrat El cor i la botella">
+
+    <div>
+      <h4>El cor i la botella</h4>
+      <p>
+        Aquest àlbum permet parlar de què passa quan una persona viu una pèrdua i decideix protegir-se per no patir. És especialment útil per reflexionar sobre el bloqueig emocional i la dificultat de tornar a expressar allò que sentim.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> conversar sobre què fem amb les emocions quan ens fan mal i sobre la importància de no tancar-nos del tot.
+      </p>
+      <ul>
+        <li>Per què la protagonista guarda el cor dins d’una botella?</li>
+        <li>Què passa quan intentem no sentir res?</li>
+        <li>Què ens pot ajudar a tornar a obrir el cor?</li>
+        <li>Amb qui podem parlar quan ens sentim així?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="album">
+    <img src="soy-la-muerte.jpg" alt="Portada de l’àlbum il·lustrat Soy la muerte">
+
+    <div>
+      <h4>Soy la muerte</h4>
+      <p>
+        És una lectura que presenta la mort com una part natural de la vida, amb un llenguatge poètic però clar. Pot ajudar l’alumnat a fer-se preguntes i a parlar de la mort sense convertir-la en un tabú.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> reflexionar sobre la relació entre la vida i la mort i sobre com podem parlar-ne amb respecte i naturalitat.
+      </p>
+      <ul>
+        <li>Per què creus que sovint costa parlar de la mort?</li>
+        <li>Què vol dir que la mort forma part de la vida?</li>
+        <li>Quines preguntes ens fem sobre aquest tema?</li>
+        <li>Com podem parlar-ne sense fer mal als altres?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="album">
+    <img src="cami-muntanya.jpg" alt="Portada de l’àlbum il·lustrat El camí de la muntanya">
+
+    <div>
+      <h4>El camí de la muntanya</h4>
+      <p>
+        Aquesta lectura permet parlar del pas del temps, de la relació entre generacions i dels aprenentatges que ens deixen les persones grans. És una proposta adequada per abordar el comiat des d’una mirada tendra i simbòlica.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> parlar sobre què aprenem de les persones que estimem i sobre com podem conservar allò que ens han ensenyat.
+      </p>
+      <ul>
+        <li>Què aprèn el personatge durant el camí?</li>
+        <li>Quines coses ens poden ensenyar les persones grans?</li>
+        <li>Què queda de les persones quan ja no hi són?</li>
+        <li>Com podem continuar compartint el que hem après d’elles?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="album">
+    <img src="llibre-trist.jpg" alt="Portada de l’àlbum il·lustrat El llibre trist">
+
+    <div>
+      <h4>El llibre trist</h4>
+      <p>
+        És una lectura adequada per a Primària perquè permet parlar de la tristesa, del dol i de la dificultat d’expressar allò que sentim quan hem perdut algú important.
+      </p>
+      <p>
+        <strong>Proposta de debat:</strong> conversar sobre com es manifesta la tristesa, per què no totes les persones viuen el dol de la mateixa manera i quines coses poden ajudar-nos quan estem passant per un moment difícil.
+      </p>
+      <ul>
+        <li>Com es nota que una persona està trista?</li>
+        <li>Tothom expressa la tristesa igual?</li>
+        <li>Què ens pot ajudar quan ens sentim malament?</li>
+        <li>Com podem acompanyar algú que està vivint una pèrdua?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="primaria-dinamiques" class="bloc-recurs">
+  <h3>Dinàmiques d’aula</h3>
+  <p>Són propostes pensades per treballar el dol, el record i l’acompanyament de manera vivencial, respectuosa i adaptada a l’alumnat de Primària. Es poden fer a partir de situacions fictícies, contes o personatges inventats per evitar exposar experiències personals de l’alumnat.</p>
+
+  <div class="racons">
+    <div class="raco">
+      <h4>La maleta dels records</h4>
+      <p>
+        Es presenta una maleta o capsa amb diferents objectes simbòlics: una fotografia, una carta, una pedra, una clau, una flor seca, una entrada o una peça de roba. Cada objecte representa una manera de recordar algú, un moment o una etapa important.
+      </p>
+      <p>
+        L’alumnat pot escollir un objecte i explicar quin record podria guardar. No cal que sigui una experiència personal real; també es pot fer a partir d’un personatge d’un conte.
+      </p>
+      <p>
+        <strong>Adaptació per cursos més elevats:</strong> es pot convertir en un “museu dels records”, on cada grup crea una fitxa explicativa de l’objecte, el seu significat simbòlic i la relació que té amb el dol o l’absència.
+      </p>
+      <ul>
+        <li>Quin objecte triaries per recordar algú?</li>
+        <li>Què pot representar aquest objecte?</li>
+        <li>Els records només es guarden en objectes?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Cartes que no cal enviar</h4>
+      <p>
+        L’alumnat escriu una carta a una persona, animal, moment o etapa que es troba a faltar. La carta no s’ha d’entregar a ningú, sinó que serveix per expressar allò que costa dir en veu alta.
+      </p>
+      <p>
+        Es poden oferir inicis de frase com: “Et recordo quan…”, “M’agradaria dir-te…”, “Gràcies per…” o “Encara penso en…”. Després, cada infant pot decidir si vol guardar-la, compartir-ne només una frase o deixar-la en una capsa simbòlica.
+      </p>
+      <p>
+        <strong>Adaptació per cursos més elevats:</strong> es pot proposar escriure una carta més elaborada, un text poètic o una entrada de diari fictícia des del punt de vista d’un personatge que està vivint una pèrdua.
+      </p>
+      <ul>
+        <li>Hi ha coses que costa dir en veu alta?</li>
+        <li>Escriure pot ajudar a ordenar el que sentim?</li>
+        <li>Què voldries conservar d’aquesta carta?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>El mapa de les emocions del dol</h4>
+      <p>
+        Es crea un mapa gran amb diferents territoris emocionals: tristesa, ràbia, por, calma, confusió, amor, record i esperança. L’alumnat hi situa targetes amb frases o situacions relacionades amb el dol.
+      </p>
+      <p>
+        Aquesta dinàmica ajuda a entendre que el dol no és només tristesa, sinó que pot incloure emocions diverses i fins i tot contradictòries.
+      </p>
+      <p>
+        <strong>Adaptació per cursos més elevats:</strong> es poden afegir emocions més complexes, com culpa, alleujament, enyorança, frustració o incertesa, i analitzar casos ficticis per veure com pot sentir-se cada personatge.
+      </p>
+      <ul>
+        <li>Quines emocions poden aparèixer quan algú viu una pèrdua?</li>
+        <li>Es pot estar trist i tranquil alhora?</li>
+        <li>Com podem respectar el que sent cada persona?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>El banc de les paraules que acompanyen</h4>
+      <p>
+        En petits grups, l’alumnat pensa frases que poden ajudar una persona que està trista i frases que, encara que es diguin amb bona intenció, poden no ajudar tant.
+      </p>
+      <p>
+        Després es classifiquen en dues columnes: “Paraules que acompanyen” i “Paraules que poden fer mal”. Finalment, es pot crear un petit banc de frases respectuoses per tenir a l’aula.
+      </p>
+      <p>
+        <strong>Adaptació per cursos més elevats</strong> es poden representar petites situacions de rol i analitzar quines respostes són més empàtiques, quines pressionen massa i quines respecten el silenci de l’altra persona.
+      </p>
+      <ul>
+        <li>Quines paraules ens poden ajudar quan estem tristos?</li>
+        <li>És millor donar consells o escoltar?</li>
+        <li>Com podem acompanyar sense pressionar?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>El ritual simbòlic del comiat</h4>
+      <p>
+        Després de llegir un conte o treballar una situació fictícia, l’alumnat escriu o dibuixa una paraula relacionada amb allò que voldria conservar: amor, record, gràcies, abraçada, llum o companyia.
+      </p>
+      <p>
+        Totes les paraules es poden col·locar en un mural, una capsa o un camí de paper. La idea és entendre que acomiadar-se no vol dir oblidar, sinó cuidar el record d’una altra manera.
+      </p>
+      <p>
+        <strong>Adaptació per cursos més elevats:</strong> es pot fer una reflexió escrita final sobre la diferència entre acomiadar-se i oblidar, o bé crear un petit protocol d’aula sobre com acompanyar algú que viu una pèrdua.
+      </p>
+      <ul>
+        <li>Quina paraula voldries conservar?</li>
+        <li>Què ens ajuda a acomiadar-nos?</li>
+        <li>Acomiadar-se vol dir oblidar?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+      <div id="primaria-escriptura" class="bloc-recurs">
+  <h3>Activitats d’escriptura i expressió</h3>
+  <p>Són propostes perquè l’alumnat pugui expressar idees, records, emocions i preguntes relacionades amb la mort i el dol a través de l’escriptura, la paraula, la creació artística i la reflexió personal.</p>
+
+  <div class="racons">
+    <div class="raco">
+      <h4>El diari d’un personatge</h4>
+      <p>
+        Després de llegir un conte o treballar una situació fictícia, l’alumnat escriu una entrada de diari des del punt de vista d’un personatge que està vivint una pèrdua.
+      </p>
+      <p>
+        Aquesta proposta permet posar-se en el lloc de l’altre i expressar emocions sense haver d’exposar experiències personals pròpies.
+      </p>
+      <p>
+        <strong>Adaptació per a cursos més elevats:</strong> es pot demanar que el text inclogui una evolució emocional: com se sentia el personatge al principi, què l’ha ajudat i com se sent després d’un temps.
+      </p>
+      <ul>
+        <li>Com se sent el personatge?</li>
+        <li>Què li agradaria dir però no sap com expressar?</li>
+        <li>Què necessita per sentir-se acompanyat?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Poemes del record</h4>
+      <p>
+        L’alumnat crea un poema breu sobre el record, l’absència, l’estima o el comiat. Es poden oferir estructures senzilles per començar, com “Recordo…”, “Trobo a faltar…”, “Guardo…” o “Gràcies per…”.
+      </p>
+      <p>
+        No cal que el poema parli d’una mort real; pot estar inspirat en un conte, una imatge, un personatge o una situació inventada.
+      </p>
+      <p>
+        <strong>Adaptació per a cursos més elevats:</strong> es pot treballar amb metàfores, comparacions i imatges poètiques per expressar emocions de manera més elaborada.
+      </p>
+      <ul>
+        <li>Quina paraula representa millor aquest record?</li>
+        <li>Si aquesta emoció fos un paisatge, com seria?</li>
+        <li>Quina imatge podria representar l’absència?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>La carta d’acompanyament</h4>
+      <p>
+        L’alumnat escriu una carta dirigida a un personatge fictici que està trist o que ha perdut algú. L’objectiu és pensar com podem acompanyar una persona sense pressionar-la ni donar-li respostes massa simples.
+      </p>
+      <p>
+        Aquesta activitat ajuda a treballar l’empatia, el respecte i el valor de les paraules quan algú està passant per un moment difícil.
+      </p>
+      <p>
+        <strong>Adaptació per a cursos més elevats:</strong> es pot revisar la carta per detectar frases que acompanyen i frases que podrien no ajudar, millorant el text amb un llenguatge més sensible.
+      </p>
+      <ul>
+        <li>Què li podries dir a algú que està trist?</li>
+        <li>Quines frases poden acompanyar sense fer mal?</li>
+        <li>Com podem mostrar que estem disponibles?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>El pot de les paraules importants</h4>
+      <p>
+        Cada alumne escriu en petits papers paraules relacionades amb el dol, el record i l’acompanyament: estima, absència, calma, tristesa, ajuda, memòria, comiat o esperança.
+      </p>
+      <p>
+        Després, es poden llegir algunes paraules i crear frases, petits textos o reflexions a partir d’elles.
+      </p>
+      <p>
+        <strong>Adaptació per a cursos més elevats:</strong> es pot convertir en una activitat d’escriptura reflexiva, demanant que cada alumne triï tres paraules i escrigui un text breu que les relacioni.
+      </p>
+      <ul>
+        <li>Quina paraula et sembla més important?</li>
+        <li>Hi ha paraules que poden fer sentir millor?</li>
+        <li>Quines paraules necessitem quan vivim una pèrdua?</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Una escena per continuar</h4>
+      <p>
+        Es presenta una escena breu: un personatge troba a faltar algú, veu un objecte que li porta records o no sap com parlar del que sent. L’alumnat ha de continuar la història.
+      </p>
+      <p>
+        Aquesta proposta permet treballar la narrativa, les emocions i la resolució simbòlica d’una situació difícil.
+      </p>
+      <p>
+        <strong>Adaptació per a cursos més elevats:</strong> es pot demanar que la història inclogui diàlegs realistes, un conflicte emocional i una resolució respectuosa, sense finals forçadament feliços.
+      </p>
+      <ul>
+        <li>Què podria passar després?</li>
+        <li>Qui podria ajudar el personatge?</li>
+        <li>Com pot acabar la història sense oblidar el que ha passat?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="primaria-dol" class="bloc-recurs">
+  <h3>Recursos per parlar del dol amb respecte</h3>
+  <p>Són orientacions i recursos per ajudar el docent a abordar la mort i el dol a l’aula de manera clara, sensible i respectuosa, evitant frases confuses o respostes que puguin invalidar les emocions de l’alumnat.</p>
+
+  <div class="racons">
+    <div class="raco">
+      <h4>Parlar amb paraules clares</h4>
+      <p>
+        Quan es parla de la mort amb infants, és important utilitzar un llenguatge clar, senzill i adaptat a l’edat. Algunes expressions com “ha marxat”, “s’ha adormit” o “està en un lloc millor” poden generar confusió o pors.
+      </p>
+      <p>
+        Es pot explicar que morir vol dir que el cos deixa de funcionar i que la persona o l’animal ja no pot menjar, respirar, parlar o sentir dolor.
+      </p>
+      <ul>
+        <li>Evitar metàfores que puguin confondre.</li>
+        <li>Respondre només allò que l’infant pregunta.</li>
+        <li>Fer servir frases breus i comprensibles.</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Validar totes les emocions</h4>
+      <p>
+        Davant d’una pèrdua, l’alumnat pot sentir tristesa, ràbia, por, culpa, confusió o fins i tot calma. No hi ha una única manera correcta de viure el dol.
+      </p>
+      <p>
+        El docent pot ajudar validant el que senten, sense obligar-los a parlar ni intentar canviar ràpidament l’emoció.
+      </p>
+      <ul>
+        <li>“És normal que et sentis així.”</li>
+        <li>“Pots estar trist/a i també recordar moments bonics.”</li>
+        <li>“No cal que parlis ara si no vols.”</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Acompanyar sense forçar</h4>
+      <p>
+        Quan un infant està vivint una pèrdua, pot necessitar parlar, però també pot necessitar silenci, rutina, joc o espais tranquils. Acompanyar no sempre vol dir preguntar constantment.
+      </p>
+      <p>
+        És important oferir disponibilitat i seguretat, respectant el ritme de cada infant i evitant exposar-lo davant del grup si no ho vol.
+      </p>
+      <ul>
+        <li>Oferir un espai tranquil si ho necessita.</li>
+        <li>No obligar a compartir experiències personals.</li>
+        <li>Respectar els silencis i els temps de cadascú.</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Frases que poden ajudar</h4>
+      <p>
+        Algunes frases poden transmetre presència, respecte i disponibilitat. No cal donar solucions immediates; sovint el més important és que l’infant senti que no està sol.
+      </p>
+      <p>
+        Aquestes frases poden servir al docent o a l’alumnat per aprendre a acompanyar millor els altres.
+      </p>
+      <ul>
+        <li>“Estic aquí amb tu.”</li>
+        <li>“Vols que t’escolti?”</li>
+        <li>“Em sap greu que estiguis passant per això.”</li>
+        <li>“Podem parlar-ne quan tu vulguis.”</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Frases que és millor evitar</h4>
+      <p>
+        Hi ha frases que es diuen amb bona intenció, però que poden fer que l’infant senti que la seva emoció no és important o que hauria de deixar d’estar trist ràpidament.
+      </p>
+      <p>
+        En lloc de treure importància al dolor, és millor reconèixer-lo i oferir companyia.
+      </p>
+      <ul>
+        <li>“No ploris.”</li>
+        <li>“Has de ser fort/a.”</li>
+        <li>“No passa res.”</li>
+        <li>“Ja se’t passarà.”</li>
+      </ul>
+    </div>
+
+    <div class="raco">
+      <h4>Cuidar el grup classe</h4>
+      <p>
+        Quan una pèrdua afecta un infant o el grup, és important cuidar el clima de l’aula. Es poden generar espais de conversa, però sempre des del respecte, la confidencialitat i la no obligació de parlar.
+      </p>
+      <p>
+        També es poden pactar petites normes de cura per escoltar millor i evitar comentaris que puguin fer mal.
+      </p>
+      <ul>
+        <li>Escoltar sense interrompre.</li>
+        <li>No riure’s de les emocions dels altres.</li>
+        <li>No explicar fora de l’aula allò que algú comparteix.</li>
+        <li>Respectar qui no vol parlar.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+    </section>
+
+    <section class="destacat">
+      <h2>Parlar de la mort també és educar per a la vida</h2>
+      <p>Visibilitzar el dol a l’escola pot ajudar els infants a posar paraules a allò que senten i a comprendre millor les experiències de pèrdua.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Saudade · Recursos per visibilitzar la mort i el dol</p>
+  </footer>
+</body>
+</html>
